@@ -159,5 +159,13 @@ file_path = os.path.join(path_to_save_expanded, output)
 
 #convert fuel DataFrame data to Excel format and store in directory specified above with date appended
 
-df_fuel_uk.to_excel(file_path, index = False)
+try:
+    df_fuel_uk.to_excel(file_path, index=False)
+    if os.path.exists(file_path) and os.path.getsize(file_path) > 0:
+        print(f"✅ Excel file successfully written to: {os.path.abspath(file_path)}")
+    else:
+        print(f"⚠️ Write completed but file not found or empty at: {file_path}")
+except Exception as e:
+    print(f"❌ Failed to write Excel file to '{file_path}': {e}")
+
 
